@@ -206,9 +206,15 @@ with open("../aux_data/exclude_items.txt","r") as f:
     line = f.readline()
     f.close()
 
+print(len(items))
 items = [item for item in items if item not in line.split(' ')]
+print(len(items))
 
 for i, item in enumerate(items):
+    if os.path.isdir(f'{svg_path}/{item}/'):
+        print(f"Skipping {item}. Item already exists.")
+        continue
+
     os.makedirs(f'{svg_path}/{item}/', exist_ok=True)
     folder = f'{db_path_cropped}/{item}'
     img_names = os.listdir(folder)
