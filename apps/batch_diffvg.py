@@ -204,6 +204,11 @@ num_iters = 400
 items = os.listdir(db_path)
 items.sort()
 items = items[(args.n_batch*len(items))//args.num_batches : min(len(items), ((args.n_batch+1)*len(items))//args.num_batches)]
+done_items = os.listdir(out_path)
+done_items.sort()
+
+items =  [item for item in items if item not in done_items]
+
 global_start = time.time()
 time_counter = TimeCounter(len(items), 1000//batch_size)
 
